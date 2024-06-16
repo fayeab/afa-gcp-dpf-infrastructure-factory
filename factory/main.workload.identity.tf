@@ -14,4 +14,5 @@ module "workloadidentity_github" {
   issuer_uri                         = local.github_issuer_uri
   repository_owner                   = local.github_repos_owner
   repository_name                    = each.value
+  depends_on                         = [google_project_service.project_services]
 }

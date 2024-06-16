@@ -9,7 +9,7 @@ resource "google_iam_workload_identity_pool_provider" "pool_provider" {
   project                            = var.project_id
   workload_identity_pool_id          = google_iam_workload_identity_pool.identity_pool.workload_identity_pool_id
   workload_identity_pool_provider_id = var.workload_identity_pool_provider_id
-  display_name                       = "Identity pool provider for ${var.repository_name}"
+  display_name                       = substr("Identity pool provider for ${var.repository_name}", 0, 32)
   attribute_condition                = "assertion.repository_owner == '${var.repository_owner}'"
   attribute_mapping = {
     "google.subject"             = "assertion.sub"

@@ -61,5 +61,5 @@ variable "list_project_id" {
 variable "region" {
   description = "Resources GCP location"
   type        = string
-  default     = "EU"
+  default     = "europe-west1"
 }

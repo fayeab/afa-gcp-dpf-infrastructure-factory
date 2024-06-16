@@ -3,7 +3,7 @@
 The resources of the Factory project is manually deployed with terraform (`afa-dpf-gcs-common-tf-state`).
 
 ```sh
-./setup.sh -p afa-dataplatform-factory
+bash setup.sh -p afa-dataplatform-factory
 ```
 
 ## Seeds deployment

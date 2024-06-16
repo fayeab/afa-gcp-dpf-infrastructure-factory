@@ -17,7 +17,7 @@ In order to deploy the seed infrastructure for each environment, a bucket must b
 Production environment has been chosen to host the bucket `afa-dpf-gcs-common-tf-state`.
 
 ```sh
-bash setup.sh -p proc-data-28
+bash setup.sh -p afa-dataplatform-factory
 ```
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

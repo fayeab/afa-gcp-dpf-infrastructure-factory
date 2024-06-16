@@ -1,5 +1,5 @@
 locals {
-  github_repos_owner = "fayab"
+  github_repos_owner = "fayeab"
   github_repos       = ["data-generation-tools"]
   github_issuer_uri  = "https://token.actions.githubusercontent.com"
 }

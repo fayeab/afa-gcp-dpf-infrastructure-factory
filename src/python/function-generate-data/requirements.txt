@@ -1,4 +1,4 @@
---extra-index-url https://europe-west1-python.pkg.dev/afa-dataplatform-factory/python-packages-afa-pltfrm/dgt
+--extra-index-url https://europe-west1-python.pkg.dev/afa-dataplatform-factory/python-packages-afa-pltfrm/simple
 dgt==0.1.0
 google-cloud-storage==2.17.0
 cloudevents==1.11.0

@@ -1,10 +1,11 @@
 
 locals {
   app                = "dpf"
+  runtime            = "python311"
   topic_name         = "function-generate-data"
   source_object_name = "functionGenerateData.zip"
   func_iam_roles     = ["storage.objectUser", "pubsub.publisher"]
-  env_var            = "{\"LIST_BUCKET_NAME\": [\"proc-data-28-tf-bucket\"], \"TOPIC_NAME\" : \"${local.topic_name}\", \"GOOGLE_CLOUD_PROJECT\" : \"${var.project_id}\",}"
+  env_var            = "{\"LIST_BUCKET_NAME\": [\"proc-data-28-tf-bucket\"], \"TOPIC_NAME\" : \"${local.topic_name}\", \"GOOGLE_CLOUD_PROJECT\" : \"${var.project_id}\"}"
 }
 
 resource "google_pubsub_topic" "pubsub_topic" {
@@ -36,6 +37,7 @@ module "function_generate_data" {
   entry_point        = "main"
   env_var            = local.env_var
   env                = "gen"
+  runtime            = local.runtime
 }
 
 resource "google_cloud_scheduler_job" "scheduler_meteo" {
@@ -43,7 +45,7 @@ resource "google_cloud_scheduler_job" "scheduler_meteo" {
   project   = var.project_id
   region    = var.region
   name      = "dpf-sch-pubsub-generate-meto-data"
-  schedule  = "*/8 * * * *"
+  schedule  = "0 10 * * 1-5"
   time_zone = "Europe/Paris"
 
   pubsub_target {

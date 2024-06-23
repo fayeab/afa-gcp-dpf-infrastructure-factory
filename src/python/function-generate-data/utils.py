@@ -60,9 +60,8 @@ def generate_fake_data(source_name: str, output_format:str="csv", sep=";") -> st
     
     for bucket_name in LIST_BUCKET_NAME:
         gcs_bucket = STORAGE_CLIENT.bucket(bucket_name)
-        filename_gcs = f"gs://{bucket_name}/rawdata/{filename}"
         try:
-            blob = gcs_bucket.blob(filename_gcs)
+            blob = gcs_bucket.blob(f"{source_name}/{filename}")
             _ = blob.upload_from_filename(filename)
             logger.info("%s is uploaded !", blob.name)
             status = 'OK'

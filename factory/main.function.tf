@@ -26,7 +26,7 @@ resource "google_storage_bucket_object" "archive_function_code" {
 }
 
 module "function_generate_data" {
-  source = "git::https://github.com/fayeab/afa-gcp-dpf-infrastructure-template//modules/function"
+  source = "git::https://github.com/fayeab/afa-gcp-dpf-infrastructure-template.git//modules/function?ref=0.1.0"
 
   project_id         = var.project_id
   app                = local.app
@@ -40,17 +40,19 @@ module "function_generate_data" {
   runtime            = local.runtime
 }
 
-resource "google_cloud_scheduler_job" "scheduler_meteo" {
+resource "google_cloud_scheduler_job" "scheduler_gen_data" {
+  for_each = local.schedule_gen_data
+
   paused    = false
   project   = var.project_id
   region    = var.region
-  name      = "dpf-sch-pubsub-generate-meto-data"
-  schedule  = "0 10 * * 1-5"
+  name      = "dpf-sch-pub-gen-${replace(each.key, "_", "-")}-data"
+  schedule  = each.value.schedule
   time_zone = "Europe/Paris"
 
   pubsub_target {
     topic_name = google_pubsub_topic.pubsub_topic.id
-    data       = base64encode("meteo;csv")
+    data       = base64encode("${each.key};${each.value.format}")
   }
 
   depends_on = [google_project_service.project_services]

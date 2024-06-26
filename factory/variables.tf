@@ -17,7 +17,9 @@ variable "enable_service_apis" {
     "logging.googleapis.com",
     "pubsub.googleapis.com",
     "run.googleapis.com",
-    "secretmanager.googleapis.com"
+    "secretmanager.googleapis.com",
+    "eventarc.googleapis.com",
+    "cloudbuild.googleapis.com"
   ]
 }
 
@@ -59,7 +61,13 @@ variable "list_project_id" {
 }
 
 variable "region" {
-  description = "Resources GCP location"
+  description = "Resources GCP region"
   type        = string
   default     = "europe-west1"
+}
+
+variable "location" {
+  description = "Resources GCP location"
+  type        = string
+  default     = "EU"
 }

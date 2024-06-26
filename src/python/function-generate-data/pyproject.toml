@@ -1,0 +1,81 @@
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+flake8 = "^7.0.0"
+flake8-pyproject = "^1.2.3"
+isort = "^5.12.0"
+interrogate = "^1.5.0"
+pytest = "^7.4.3"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+pre-commit = "^3.5.0"
+docstr-coverage = "^2.3.0"
+google-cloud-storage = "^2.17.0"
+cloudevents = "^1.11.0"
+functions-framework = "^3.7.0"
+
+coverage = { extras = ["toml"], version = "^7.4.0" }
+genbadge = { extras = ["all"], version = "^1.1.1" }
+
+[tool.black]
+line-length = 100
+
+[tool.flake8]
+ignore = [
+    'E501',
+    'W503',
+    'E731',
+]
+max-line-length = 100
+max-complexity = 18
+select = ['B', 'C', 'E', 'F', 'W', 'T4', 'B9']
+exclude = ['.git', '__pycache__']
+per-file-ignores = ['__init__.py:F401']
+
+[tool.coverage.run]
+branch = true
+data_file = "docs/reports/.coverage"
+source = ['.']
+
+[tool.coverage.html]
+title = "Coverage report"
+directory = "docs/reports/coverage"
+show_contexts = true
+
+[tool.coverage.xml]
+output = "docs/reports/coverage.xml"
+
+[tool.pytest.ini_options]
+addopts = "--junitxml=docs/reports/junit.xml --cov=. --cov-report=html --cov-report=xml --cov-context=test"
+
+[tool.isort]
+profile = "black"
+length_sort = true
+force_single_line = true
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = false
+ignore-magic = false
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 95
+ignore-regex = ["^get$", "^mock_.*", ".*BaseClass.*"]
+verbose = 0
+quiet = false
+whitelist-regex = []
+color = true

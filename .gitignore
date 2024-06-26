@@ -5,3 +5,6 @@
 *.tfstate
 *.tfstate.*
 *.hcl
+
+# .zip files
+*.zip

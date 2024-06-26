@@ -1,4 +1,5 @@
 locals {
+  bucket_zip_code = "afa-gcs-artificats-zipcode"
   dfp_sac_roles = distinct(flatten([
     for project_id in var.list_project_id : [
       for role in var.dfp_sac_iam_roles : {
@@ -70,4 +71,13 @@ resource "google_project_iam_member" "sac_log_writer" {
   member     = google_service_account.sac.member
   role       = each.value
   depends_on = [google_project_service.project_services]
+}
+
+resource "google_storage_bucket" "bucket_zip_code" {
+  name          = local.bucket_zip_code
+  location      = var.location
+  project       = var.project_id
+  storage_class = "STANDARD"
+  depends_on    = [google_project_service.project_services]
+
 }

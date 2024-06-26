@@ -77,7 +77,6 @@ resource "google_storage_bucket" "bucket_zip_code" {
   name          = local.bucket_zip_code
   location      = var.location
   project       = var.project_id
-  force_destroy = true
   storage_class = "STANDARD"
   depends_on    = [google_project_service.project_services]
 

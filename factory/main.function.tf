@@ -26,7 +26,7 @@ resource "google_storage_bucket_object" "archive_function_code" {
 }
 
 module "function_generate_data" {
-  source = "git::https://github.com/fayeab/afa-gcp-dpf-infrastructure-template.git//modules/function?ref=0.1.0"
+  source = "git::https://github.com/fayeab/afa-gcp-dpf-infrastructure-template.git//modules/function?ref=v0.1.0"
 
   project_id         = var.project_id
   app                = local.app

@@ -1,9 +1,9 @@
 # Setup of Factory project
 
-The resources of the Factory project is manually deployed with terraform (`afa-dpf-gcs-common-tf-state`).
+The resources of the Factory project is manually deployed with terraform (`afa-fac-gcs-common-tf-state`).
 
 ```sh
-gsutil mb -b on -c standard -l EU -p afa-dataplatform-factory afa-fac-gcs-common-tf-state
+gsutil mb -b on -c standard -l EU -p afa-dataplatform-factory  gs://afa-fac-gcs-common-tf-state
 ```
 
 ### Authentication

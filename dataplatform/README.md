@@ -1,4 +1,4 @@
-# Setup of Seeds infrastructure
+# Setup of Data Platform infrastructure
 
 
 We initialize each environment :
@@ -11,7 +11,7 @@ We initialize each environment :
 
 > This initialization is what we call the seed infrastructure.
 
-## Seeds deployment
+## Data Platform deployment
 
 ### Authentication
 

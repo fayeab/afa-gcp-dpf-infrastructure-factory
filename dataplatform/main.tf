@@ -1,12 +1,11 @@
 locals {
-  bucket_format = "%s-%s-gcs-pltfrm-tf-state"
-  sac_format    = "%s-%s-sac-pltfrm-tf"
-
+  bucket_format = "%s-gcs-tfstate-%s"
+  sac_format    = "%s-sac-pltfrm-%s"
   tf_sac_id = lower(
     format(
       local.sac_format,
+      substr(var.app_name, 0, 16),
       var.env,
-      substr(var.app_name, 0, 16)
     )
   )
 
@@ -125,4 +124,21 @@ resource "google_service_usage_consumer_quota_override" "quota_bq_user" {
   override_value = "262144"
   force          = true
   timeouts {}
+}
+
+locals {
+  github_repos_owner = "fayeab"
+  github_repos       = "afa-gcp-dpf-infrastructure"
+  github_issuer_uri  = "https://token.actions.githubusercontent.com"
+}
+
+module "workloadidentity_dpf_gitlab" {
+  source   = "../modules/workloadidentity"
+  project_id                         = var.application_project_id
+  workload_identity_pool_id          = "wip-${local.github_repos}"
+  workload_identity_pool_provider_id = "wipp-${local.github_repos}"
+  sac_workload_identity              = google_service_account.tf_sac.id
+  issuer_uri                         = local.github_issuer_uri
+  repository_owner                   = local.github_repos_owner
+  repository_name                    = local.github_repos
 }

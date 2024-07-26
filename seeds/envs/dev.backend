@@ -1,2 +1,2 @@
-bucket = "afa-dpf-gcs-common-tf-state"
+bucket = "afa-dpf-gcs-tfstate-dev"
 prefix = "seeds/dev/state"

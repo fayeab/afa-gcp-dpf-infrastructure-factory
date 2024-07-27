@@ -27,3 +27,8 @@ variable "repository_name" {
   description = "The repository name"
   type        = string
 }
+
+variable "sac_workload_identity" {
+  description = "The service account to use by Workfload Identity"
+  type        = string
+}

@@ -1,24 +1,22 @@
 # afa-gcp-dpf-infrastructure-factory
 
-# Data Platform afaproj Scan Infrastructure
+# AFA Data Platform
 
-This repository is dedicated to the deployment of the Data Platform afaproj Scan infrastructure.
+This repository is dedicated to the deployment of the AFA Data Platform.
 
 # Structure  
 
 The `factory` contains the TF code to create the ressources of the factory project. 
 
-The `seeds` contains the TF code to initialize each environment. The resources are manually deployed with terraform. The terraform backend is hosted in the production environnement : `afa-dpf-gcs-common-tf-state`.
+The `dataplatform` contains the TF code to initialize each environment of the Data Platform. The resources are manually deployed with terraform. The terraform backend is hosted in the production environnement: 
+ * dev: `afa-dpf-gcs-tfstate-dev`
+ * uat: `afa-dpf-gcs-tfstate-uat`
+ * prd: `afa-dpf-gcs-tfstate-prd`
 
 # Prerequisites
 
-In order to deploy the seed infrastructure for each environment, a bucket must be created to store terrraform tfstate.
+In order to deploy the seed infrastructure for each environment, buckets must be created to store terrraform tfstate.
 
-Production environment has been chosen to host the bucket `afa-dpf-gcs-common-tf-state`.
-
-```sh
-bash setup.sh -p afa-dataplatform-factory
-```
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

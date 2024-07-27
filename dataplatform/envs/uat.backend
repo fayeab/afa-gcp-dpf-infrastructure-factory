@@ -1,2 +1,2 @@
 bucket = "afa-fac-gcs-common-tf-state"
-prefix = "factory/state"
+prefix = "dataplatform/uat/state"

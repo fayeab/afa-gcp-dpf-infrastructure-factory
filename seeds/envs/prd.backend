@@ -1,2 +1,0 @@
-bucket = "afa-dpf-gcs-common-tf-state"
-prefix = "seeds/prd/state"

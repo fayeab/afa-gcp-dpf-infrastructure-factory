@@ -133,7 +133,7 @@ locals {
 }
 
 module "workloadidentity_dpf_gitlab" {
-  source   = "../modules/workloadidentity"
+  source                             = "../modules/workloadidentity"
   project_id                         = var.application_project_id
   workload_identity_pool_id          = "wip-${local.github_repos}"
   workload_identity_pool_provider_id = "wipp-${local.github_repos}"

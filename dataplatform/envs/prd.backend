@@ -1,2 +1,2 @@
 bucket = "afa-fac-gcs-common-tf-state"
-prefix = "seeds/prd/state"
+prefix = "dataplatform/prd/state"

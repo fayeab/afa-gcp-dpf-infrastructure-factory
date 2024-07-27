@@ -135,8 +135,8 @@ locals {
 module "workloadidentity_dpf_gitlab" {
   source                             = "../modules/workloadidentity"
   project_id                         = var.application_project_id
-  workload_identity_pool_id          = "wip-${local.github_repos}"
-  workload_identity_pool_provider_id = "wipp-${local.github_repos}"
+  workload_identity_pool_id          = "${local.github_repos}-wip"
+  workload_identity_pool_provider_id = "${local.github_repos}-wipp"
   sac_workload_identity              = google_service_account.tf_sac.id
   issuer_uri                         = local.github_issuer_uri
   repository_owner                   = local.github_repos_owner

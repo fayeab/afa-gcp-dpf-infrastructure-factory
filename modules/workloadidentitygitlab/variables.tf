@@ -13,18 +13,24 @@ variable "workload_identity_pool_provider_id" {
   type        = string
 }
 
-variable "issuer_uri" {
+variable "gitlab_url" {
   description = "The OIDC issuer URL"
+  type        = string
+  default     = "https://gitlab.com"
+}
+
+variable "gitlab_namespace_path" {
+  description = "Namespace path to filter auth requests"
+  type        = string
+}
+
+variable "gitlab_project_path" {
+  description = "GitLab project Path to restrict authentication from"
   type        = string
 }
 
 variable "repository_name" {
   description = "The repository name"
-  type        = string
-}
-
-variable "user_login" {
-  description = "The user login"
   type        = string
 }
 

@@ -127,18 +127,20 @@ resource "google_service_usage_consumer_quota_override" "quota_bq_user" {
 }
 
 locals {
-  user_login        = "layef"
-  repository_name   = "afa-gcp-dpf-infrastructure"
-  gitlab_issuer_uri = "https://gitlab.com/"
+  gitlab_project_path   = "layef/afa-gcp-dpf-infrastructure"
+  gitlab_namespace_path = "layef"
+  repository_name       = "afa-gcp-dpf-infrastructure"
+  gitlab_url            = "https://gitlab.com"
 }
 
 module "workloadidentity_dpf_gitlab" {
-  source                             = "../modules/workloadidentityGitlab"
+  source                             = "../modules/workloadidentitygitlab"
   project_id                         = var.application_project_id
   workload_identity_pool_id          = "${local.repository_name}-wip"
   workload_identity_pool_provider_id = "${local.repository_name}-wipp"
   sac_workload_identity              = google_service_account.tf_sac.id
-  issuer_uri                         = local.gitlab_issuer_uri
-  user_login                         = local.user_login
+  gitlab_url                         = local.gitlab_url
+  gitlab_project_path                = local.gitlab_project_path
+  gitlab_namespace_path              = local.gitlab_namespace_path
   repository_name                    = local.repository_name
 }

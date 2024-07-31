@@ -37,7 +37,7 @@ resource "google_project_iam_member" "sac_workload_identity_iam_roles" {
 }
 
 module "workloadidentity_github" {
-  source   = "../modules/workloadidentityGithub"
+  source   = "../modules/workloadidentitygithub"
   for_each = local.github_repos
 
   project_id                         = var.project_id

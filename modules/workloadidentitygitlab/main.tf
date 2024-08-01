@@ -26,7 +26,8 @@ resource "google_iam_workload_identity_pool_provider" "pool_provider" {
 
 # Allow the workload identity provider to impersonate the service account
 resource "google_service_account_iam_member" "impersonation" {
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.identity_pool.name}/attribute.project_path/${var.gitlab_project_path}"
+  #member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.identity_pool.name}/attribute.project_path/${var.gitlab_project_path}"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.identity_pool.name}/*"
   role               = "roles/iam.workloadIdentityUser"
   service_account_id = var.sac_workload_identity
 }

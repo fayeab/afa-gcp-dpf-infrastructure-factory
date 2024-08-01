@@ -24,10 +24,11 @@ variable "gitlab_namespace_path" {
   type        = string
 }
 
-variable "gitlab_project_path" {
-  description = "GitLab project Path to restrict authentication from"
-  type        = string
-}
+#
+#variable "gitlab_project_path" {
+#  description = "GitLab project Path to restrict authentication from"
+#  type        = string
+#}
 
 variable "repository_name" {
   description = "The repository name"

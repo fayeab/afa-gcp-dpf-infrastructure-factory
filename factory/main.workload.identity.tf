@@ -41,8 +41,8 @@ module "workloadidentity_github" {
   for_each = local.github_repos
 
   project_id                         = var.project_id
-  workload_identity_pool_id          = "wip-${each.key}"
-  workload_identity_pool_provider_id = "wipp-${each.key}"
+  workload_identity_pool_id          = "${each.key}-wip"
+  workload_identity_pool_provider_id = "${each.key}-wipp"
   issuer_uri                         = local.github_issuer_uri
   repository_owner                   = local.github_repos_owner
   repository_name                    = each.key

@@ -5,7 +5,7 @@ locals {
   topic_name         = "function-generate-data"
   source_object_name = "functionGenerateData.zip"
   func_iam_roles     = ["storage.objectUser", "pubsub.publisher"]
-  env_var            = "{\"LIST_BUCKET_NAME\": [\"proc-data-28-tf-bucket\"], \"TOPIC_NAME\" : \"${local.topic_name}\", \"GOOGLE_CLOUD_PROJECT\" : \"${var.project_id}\"}"
+  env_var            = "{\"LIST_BUCKET_NAME\": [\"gcs-afadpf-raw-dev\", \"gcs-afadpf-raw-uat\", \"gcs-afadpf-raw-prd\"], \"TOPIC_NAME\" : \"${local.topic_name}\", \"GOOGLE_CLOUD_PROJECT\" : \"${var.project_id}\"}"
 }
 
 resource "google_pubsub_topic" "pubsub_topic" {

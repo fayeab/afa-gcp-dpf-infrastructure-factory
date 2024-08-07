@@ -48,9 +48,11 @@ def generate_fake_data(source_name: str, output_format:str="csv", sep=";") -> st
         raise ValueError("The format for the output file must be in %s", FORMATS)
 
     generator = FakerDataGenerator(source_name=source_name, n_rows=N_ROWS)
-    now = datetime.now().strftime("%Y%m%d%H%M%S")
+    now = datetime.now()
+    now_str = now.strftime("%Y%m%d%H%M%S")
     generator.apply()
-    filename = f"{source_name}_{now}.{output_format}"
+    filename = f"{source_name}_{now_str}.{output_format}"
+    path_filename = f"{source_name}/{now:%Y}/{now:%m}/{now:%d}"
     dfm = generator.generate_data(to_return=True)
 
     if output_format == 'csv':
@@ -61,7 +63,7 @@ def generate_fake_data(source_name: str, output_format:str="csv", sep=";") -> st
     for bucket_name in LIST_BUCKET_NAME:
         gcs_bucket = STORAGE_CLIENT.bucket(bucket_name)
         try:
-            blob = gcs_bucket.blob(f"{source_name}/{filename}")
+            blob = gcs_bucket.blob(f"{path_filename}/{filename}")
             _ = blob.upload_from_filename(filename)
             logger.info("%s is uploaded !", blob.name)
             status = 'OK'

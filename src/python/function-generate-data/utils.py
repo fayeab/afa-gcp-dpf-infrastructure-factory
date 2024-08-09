@@ -2,6 +2,7 @@
 import os
 import logging
 import json
+import pytz
 from datetime import datetime
 from google.cloud import storage
 from dgt.utils.fake_data import FakerDataGenerator
@@ -48,8 +49,8 @@ def generate_fake_data(source_name: str, output_format:str="csv", sep=";") -> st
         raise ValueError("The format for the output file must be in %s", FORMATS)
 
     generator = FakerDataGenerator(source_name=source_name, n_rows=N_ROWS)
-    now = datetime.now()
-    now_str = now.strftime("%Y%m%d%H%M%S")
+    now = datetime.now(pytz.timezone("Europe/Paris"))
+    now_str = now.strftime("%Y%m%d%H%M")
     generator.apply()
     filename = f"{source_name}_{now_str}.{output_format}"
     path_filename = f"{source_name}/{now:%Y}/{now:%m}/{now:%d}"

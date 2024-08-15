@@ -1,5 +1,6 @@
 locals {
   bucket_zip_code = "afa-gcs-artificats-zipcode"
+
   dfp_sac_roles = distinct(flatten([
     for project_id in var.list_project_id : [
       for role in var.dfp_sac_iam_roles : {
@@ -8,6 +9,27 @@ locals {
       }
     ]
   ]))
+
+  dbt_sac_iam_roles_factory = [
+    "roles/artifactregistry.admin",
+    "roles/container.admin"
+  ]
+
+  list_dbt_sac = [
+    "afadpf-sac-pltfrm-dev@afa-data-platform-dev.iam.gserviceaccount.com",
+    "afadpf-sac-pltfrm-uat@afa-data-platform-uat.iam.gserviceaccount.com",
+    "afadpf-sac-pltfrm-prd@afa-data-platform-prd.iam.gserviceaccount.com"
+  ]
+
+  list_dbt_sac_roles = distinct(flatten([
+    for sac in local.list_dbt_sac : [
+      for role in local.dbt_sac_iam_roles_factory : {
+        sac  = sac
+        role = role
+      }
+    ]
+  ]))
+
 }
 
 resource "google_artifact_registry_repository" "image_docker" {
@@ -80,4 +102,20 @@ resource "google_storage_bucket" "bucket_zip_code" {
   storage_class = "STANDARD"
   depends_on    = [google_project_service.project_services]
 
+}
+
+resource "google_storage_bucket_iam_binding" "bucket_zip_code_iam" {
+  for_each = toset(local.list_dbt_sac)
+
+  bucket  = google_storage_bucket.bucket_zip_code.name
+  role    = "roles/storage.admin"
+  members = ["serviceAccount:${each.value}"]
+}
+
+resource "google_project_iam_member" "dbt_sac_iam_factory" {
+  for_each = { for entry in local.list_dbt_sac_roles : "${entry.sac}.${entry.role}" => entry }
+
+  member  = "serviceAccount:${each.value.sac}"
+  project = var.project_id
+  role    = each.value.role
 }

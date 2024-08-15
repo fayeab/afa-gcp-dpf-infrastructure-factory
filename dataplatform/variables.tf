@@ -80,6 +80,7 @@ variable "tf_sac_iam_roles" {
     "roles/run.admin",
     "roles/storage.admin",
     "roles/workflows.admin",
+    "roles/iam.workloadIdentityPoolAdmin"
   ]
 }
 

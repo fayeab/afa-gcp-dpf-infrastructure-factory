@@ -16,10 +16,16 @@ locals {
   ]
 
   list_dbt_sac = [
-    "afadpf-sac-pltfrm-dev@afa-data-platform-dev.iam.gserviceaccount.com",
-    "afadpf-sac-pltfrm-uat@afa-data-platform-uat.iam.gserviceaccount.com",
-    "afadpf-sac-pltfrm-prd@afa-data-platform-prd.iam.gserviceaccount.com"
+    "sac-dpf-data-build-tool@afa-data-platform-dev.iam.gserviceaccount.com",
+    #"sac-dpf-data-build-tool@afa-data-platform-uat.iam.gserviceaccount.com",
+    #"sac-dpf-data-build-tool@afa-data-platform-prd.iam.gserviceaccount.com"
   ]
+
+  list_dbt_sac_prefix = distinct(flatten([
+    for sac in local.list_dbt_sac : [
+      "serviceAccount:${sac}"
+    ]
+  ]))
 
   list_dbt_sac_roles = distinct(flatten([
     for sac in local.list_dbt_sac : [
@@ -104,12 +110,10 @@ resource "google_storage_bucket" "bucket_zip_code" {
 
 }
 
-resource "google_storage_bucket_iam_binding" "bucket_zip_code_iam" {
-  for_each = toset(local.list_dbt_sac)
-
+resource "google_storage_bucket_iam_binding" "dbt_bucket_zip_code_iam" {
   bucket  = google_storage_bucket.bucket_zip_code.name
   role    = "roles/storage.admin"
-  members = ["serviceAccount:${each.value}"]
+  members = local.list_dbt_sac_prefix
 }
 
 resource "google_project_iam_member" "dbt_sac_iam_factory" {
